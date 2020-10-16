@@ -8,7 +8,8 @@ class SornXmlParser
 
   def parse_sorn
     {
-      agency: get_agency,
+      # agency: get_agency,
+      # subagency: get_subagency,
       action: get_action,
       summary: get_summary,
       dates: get_dates,
@@ -35,7 +36,7 @@ class SornXmlParser
       notification: get_notification,
       exemptions: get_exemptions,
       history: get_history,
-      headers: @sections.keys
+      # headers: @sections.keys
     }
   end
 

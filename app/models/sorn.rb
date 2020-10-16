@@ -1,7 +1,7 @@
 class Sorn < ApplicationRecord
   include PgSearch::Model
-  belongs_to :agency
-  validates :citation, uniqueness: true
+  # belongs_to :agency
+  # validates :citation, uniqueness: true, allow_nil: true
 
   FIELDS = [
     :action,
@@ -32,12 +32,16 @@ class Sorn < ApplicationRecord
     :history
   ]
 
-  METADATA = [
+  API_FIELDS = [
     :html_url,
     :xml_url,
+    :text_url,
     :headers,
     :data_source,
-    :citation
+    :citation,
+    :title,
+    :agency_names,
+    :publication_date,
   ]
 
   pg_search_scope :dynamic_search, lambda { |field, query|

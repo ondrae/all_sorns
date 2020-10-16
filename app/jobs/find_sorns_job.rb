@@ -9,11 +9,12 @@ class FindSornsJob < ApplicationJob
 
     conditions = { term: 'Privacy Act of 1974; System of Records' }#, agencies: ['general-services-administration'] }
     # 'general-services-administration', 'justice-department', 'defense-department']
-    fields = ['title', 'full_text_xml_url', 'html_url', 'citation']#, 'raw_text_url', 'agency_names', 'dates']
+    fields = ['type', 'publication_date', 'title', 'full_text_xml_url', 'html_url', 'citation', 'agency_names', 'action' ]
     # unfortunately the ruby gem doesn't have the year filter implemented, only specific dates.
+    # we should probably switch to use the http api
     search_options = {
       conditions: conditions,
-      type: 'NOTICE',
+      type: 'NOTICE', # doesn't seem to work
       fields: fields,
       order: 'newest', #oldest
       per_page: 200,
@@ -27,17 +28,27 @@ class FindSornsJob < ApplicationJob
     puts 'Asking for SORNs'
     result_set = FederalRegister::Document.search(search_options)
 
-    result_set.results.each do |result|
 
-      next unless a_sorn_title?(result.title)
-      # next if Sorn.find_by(citation: result.citation)
+    result_set.results.each do |result|
+      next unless result.type == 'Notice'
+      next unless result.title.include? 'Privacy Act of 1974'
 
       params = {
+        action: result.action,
         xml_url: result.full_text_xml_url,
         html_url: result.html_url,
-        citation: result.citation
+        citation: result.citation,
+        agency_names: result.agency_names,
+        publication_date: result.publication_date,
+        title: result.title,
+        text_url: result.raw_text_url,
+        dates: result.dates,
+        data_source: :fedreg
       }
-      ParseSornXmlJob.perform_later(params)
+      sorn = Sorn.create!(params)
+      puts "Sorn #{sorn.id} created"
+
+      ParseSornXmlJob.perform_later(sorn.id) if sorn.xml_url
     end
 
     # Keep making more requests until there are no more.
@@ -51,9 +62,9 @@ class FindSornsJob < ApplicationJob
 
   def a_sorn_title?(title)
     includes_privacy_act = title.include?('Privacy Act of 1974')
-    excludes_unwanted_titles = ['matching', 'rulemaking', 'implementation'].all? do |excluded_title|
-      title.downcase.exclude? excluded_title
-    end
-    includes_privacy_act && excludes_unwanted_titles
+    # excludes_unwanted_titles = ['matching', 'rulemaking', 'implementation'].all? do |excluded_title|
+    #   title.downcase.exclude? excluded_title
+    # end
+    includes_privacy_act #&& excludes_unwanted_titles
   end
 end

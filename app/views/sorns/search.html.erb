@@ -79,9 +79,15 @@
                   </h2>
                 </div>
 
-                <% if sorn.agency.name %>
-                  <h4><%= highlight(sorn.agency.name, params[:search]) %></h4>
-                <% end %>
+                <h4>Agencies: <%= highlight(sorn.agency_names, params[:search]) %></h4>
+                <%
+=begin%>
+ <h4>Title: <%= highlight(sorn.title, params[:search]) %></h4>
+                <h4>Publication Date: <%= highlight(sorn.publication_date, params[:search]) %></h4>
+                <h4>Citation: <%= highlight(sorn.citation, params[:search]) %></h4>
+<%
+=end%>
+
 
                 <% if sorn.action %>
                   <% if @selected_fields && @selected_fields.include?("action") %>
