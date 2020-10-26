@@ -82,6 +82,4 @@ class FindSornsJob < ApplicationJob
       search_fed_reg(search_options)
     end
   end
-
-  private
 end
