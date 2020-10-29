@@ -50,10 +50,17 @@ class Sorn < ApplicationRecord
   DEFAULT_FIELDS = [
     'agency_names',
     'action',
-    'system_name',
     'summary',
-    'html_url',
-    'publication_date'
+    'system_name',
+    'system_number',
+    'purpose',
+    'authority',
+    'categories_of_individuals',
+    'categories_of_record',
+    'routine_uses',
+    'exemptions',
+    'history',
+    'citation'
   ]
 
   pg_search_scope :dynamic_search, lambda { |field, query|
