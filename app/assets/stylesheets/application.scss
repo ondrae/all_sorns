@@ -61,7 +61,7 @@
  // use with mixin utility when available
  #search-filters{
   font-size: 20px;
-  margin-bottom: 19px;
+  padding: 16px;
   font-weight:bold;
  }
 
@@ -71,7 +71,7 @@
  }
 
  #sorn-fields input[type='checkbox']{
-   border-radius: 0 !important; 
+   border-radius: 0 !important;
  }
 
  .usa-nav__secondary {
@@ -106,14 +106,14 @@
  #main-content {
  }
 
- #sorn-fields {
-   overflow-y: scroll;
-   height: 312px;
-   border-bottom: 1px solid #C4C4C4;
- }
+//  #sorn-fields {
+//    overflow-y: scroll;
+//    height: 312px;
+//    border-bottom: 1px solid #C4C4C4;
+//  }
 
  #a1 {
-  overflow-y: scroll;
+  // overflow-y: scroll;
   height: 312px;
  }
 

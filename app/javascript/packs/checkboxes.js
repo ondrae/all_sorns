@@ -14,4 +14,10 @@ $(document).ready( function () {
       $(`#search-${field}`).prop("checked", true)
     });
   }
+
+
+  // debug somejumping around when clicking on checkboxes
+  checkboxes.click(function(e){
+    console.log(e)
+  })
 })
