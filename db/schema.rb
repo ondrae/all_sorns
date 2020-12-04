@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_11_13_200542) do
+ActiveRecord::Schema.define(version: 2020_12_04_230614) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "pgcrypto"
@@ -88,40 +88,40 @@ ActiveRecord::Schema.define(version: 2020_11_13_200542) do
     t.string "system_number"
     t.string "data_source"
     t.string "citation"
-    t.string "agency_names"
     t.xml "xml"
     t.string "pdf_url"
     t.string "text_url"
     t.string "publication_date"
     t.string "title"
     t.string "action_type"
-    t.index "to_tsvector('english'::regconfig, (access)::text)", name: "access_idx", using: :gist
-    t.index "to_tsvector('english'::regconfig, (action)::text)", name: "action_idx", using: :gist
-    t.index "to_tsvector('english'::regconfig, (addresses)::text)", name: "addresses_idx", using: :gist
-    t.index "to_tsvector('english'::regconfig, (agency_names)::text)", name: "agency_names_idx", using: :gist
-    t.index "to_tsvector('english'::regconfig, (authority)::text)", name: "authority_idx", using: :gist
-    t.index "to_tsvector('english'::regconfig, (categories_of_individuals)::text)", name: "categories_of_individuals_idx", using: :gist
-    t.index "to_tsvector('english'::regconfig, (categories_of_record)::text)", name: "categories_of_record_idx", using: :gist
-    t.index "to_tsvector('english'::regconfig, (contesting)::text)", name: "contesting_idx", using: :gist
-    t.index "to_tsvector('english'::regconfig, (dates)::text)", name: "dates_idx", using: :gist
-    t.index "to_tsvector('english'::regconfig, (exemptions)::text)", name: "exemptions_idx", using: :gist
-    t.index "to_tsvector('english'::regconfig, (further_info)::text)", name: "further_info_idx", using: :gist
-    t.index "to_tsvector('english'::regconfig, (history)::text)", name: "history_idx", using: :gist
-    t.index "to_tsvector('english'::regconfig, (location)::text)", name: "location_idx", using: :gist
-    t.index "to_tsvector('english'::regconfig, (manager)::text)", name: "manager_idx", using: :gist
-    t.index "to_tsvector('english'::regconfig, (notification)::text)", name: "notification_idx", using: :gist
-    t.index "to_tsvector('english'::regconfig, (purpose)::text)", name: "purpose_idx", using: :gist
-    t.index "to_tsvector('english'::regconfig, (retention)::text)", name: "retention_idx", using: :gist
-    t.index "to_tsvector('english'::regconfig, (retrieval)::text)", name: "retrieval_idx", using: :gist
-    t.index "to_tsvector('english'::regconfig, (routine_uses)::text)", name: "routine_uses_idx", using: :gist
-    t.index "to_tsvector('english'::regconfig, (safeguards)::text)", name: "safeguards_idx", using: :gist
-    t.index "to_tsvector('english'::regconfig, (security)::text)", name: "security_idx", using: :gist
-    t.index "to_tsvector('english'::regconfig, (source)::text)", name: "source_idx", using: :gist
-    t.index "to_tsvector('english'::regconfig, (storage)::text)", name: "storage_idx", using: :gist
-    t.index "to_tsvector('english'::regconfig, (summary)::text)", name: "summary_idx", using: :gist
-    t.index "to_tsvector('english'::regconfig, (supplementary_info)::text)", name: "supplementary_info_idx", using: :gist
-    t.index "to_tsvector('english'::regconfig, (system_name)::text)", name: "system_name_idx", using: :gist
-    t.index "to_tsvector('english'::regconfig, (system_number)::text)", name: "system_number_idx", using: :gist
+    t.string "agency_names"
+    t.index "to_tsvector('english'::regconfig, (access)::text)", name: "access_idx", using: :gin
+    t.index "to_tsvector('english'::regconfig, (action)::text)", name: "action_idx", using: :gin
+    t.index "to_tsvector('english'::regconfig, (addresses)::text)", name: "addresses_idx", using: :gin
+    t.index "to_tsvector('english'::regconfig, (agency_names)::text)", name: "agency_names_idx", using: :gin
+    t.index "to_tsvector('english'::regconfig, (authority)::text)", name: "authority_idx", using: :gin
+    t.index "to_tsvector('english'::regconfig, (categories_of_individuals)::text)", name: "categories_of_individuals_idx", using: :gin
+    t.index "to_tsvector('english'::regconfig, (categories_of_record)::text)", name: "categories_of_record_idx", using: :gin
+    t.index "to_tsvector('english'::regconfig, (contesting)::text)", name: "contesting_idx", using: :gin
+    t.index "to_tsvector('english'::regconfig, (dates)::text)", name: "dates_idx", using: :gin
+    t.index "to_tsvector('english'::regconfig, (exemptions)::text)", name: "exemptions_idx", using: :gin
+    t.index "to_tsvector('english'::regconfig, (further_info)::text)", name: "further_info_idx", using: :gin
+    t.index "to_tsvector('english'::regconfig, (history)::text)", name: "history_idx", using: :gin
+    t.index "to_tsvector('english'::regconfig, (location)::text)", name: "location_idx", using: :gin
+    t.index "to_tsvector('english'::regconfig, (manager)::text)", name: "manager_idx", using: :gin
+    t.index "to_tsvector('english'::regconfig, (notification)::text)", name: "notification_idx", using: :gin
+    t.index "to_tsvector('english'::regconfig, (purpose)::text)", name: "purpose_idx", using: :gin
+    t.index "to_tsvector('english'::regconfig, (retention)::text)", name: "retention_idx", using: :gin
+    t.index "to_tsvector('english'::regconfig, (retrieval)::text)", name: "retrieval_idx", using: :gin
+    t.index "to_tsvector('english'::regconfig, (routine_uses)::text)", name: "routine_uses_idx", using: :gin
+    t.index "to_tsvector('english'::regconfig, (safeguards)::text)", name: "safeguards_idx", using: :gin
+    t.index "to_tsvector('english'::regconfig, (security)::text)", name: "security_idx", using: :gin
+    t.index "to_tsvector('english'::regconfig, (source)::text)", name: "source_idx", using: :gin
+    t.index "to_tsvector('english'::regconfig, (storage)::text)", name: "storage_idx", using: :gin
+    t.index "to_tsvector('english'::regconfig, (summary)::text)", name: "summary_idx", using: :gin
+    t.index "to_tsvector('english'::regconfig, (supplementary_info)::text)", name: "supplementary_info_idx", using: :gin
+    t.index "to_tsvector('english'::regconfig, (system_name)::text)", name: "system_name_idx", using: :gin
+    t.index "to_tsvector('english'::regconfig, (system_number)::text)", name: "system_number_idx", using: :gin
     t.index ["citation"], name: "index_sorns_on_citation"
   end
 
