@@ -11,6 +11,7 @@ gem 'httparty'
 gem 'federal_register', '~> 0.7.6'
 gem 'saxerator'
 gem 'pg_search'
+gem 'scenic'
 gem 'kaminari'
 
 # Use Puma as the app server
