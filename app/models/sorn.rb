@@ -109,8 +109,9 @@ class Sorn < ApplicationRecord
   end
 
   def section_snippets(selected_fields, search_term)
+    sorn_sections = selected_fields.map(&:to_s)
     output = {}
-    self.attributes.slice(*selected_fields).each do |key, value|
+    self.attributes.slice(*sorn_sections).each do |key, value|
       if value =~ /#{search_term}/i
         output[key] = highlight(excerpt(value.to_s, search_term, radius: 200), search_term)
       end

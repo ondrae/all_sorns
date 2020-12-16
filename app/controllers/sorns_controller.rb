@@ -1,40 +1,41 @@
 class SornsController < ApplicationController
   def search
     @sorns = Sorn.no_computer_matching.includes(:mentioned).preload(:agencies)
+    @selected_fields = Sorn::FIELDS
+    @sorns = @sorns.dynamic_search(@selected_fields, params[:search])
 
-    if no_params_on_page_load?
-      # return all sorns with default fields
-      @selected_fields = Sorn::DEFAULT_FIELDS
+    # if no_params_on_page_load?
+    #   # return all sorns with default fields
 
-    elsif params[:fields].blank?
-      # Return nothing, with no default fields
-      @selected_fields = nil
-      @sorns = Sorn.none
+    # elsif params[:fields].blank?
+    #   # Return nothing, with no default fields
+    #   @selected_fields = nil
+    #   @sorns = Sorn.none
 
-    elsif search_and_agency_blank?
-      #  return all sorns with just those fields
-      @selected_fields = params[:fields]
+    # elsif search_and_agency_blank?
+    #   #  return all sorns with just those fields
+    #   @selected_fields = params[:fields]
 
-    elsif search_present_and_agency_blank?
-      #  return matching sorns with just those fields
-      @selected_fields = params[:fields]
-      field_syms = @selected_fields.map { |field| field.to_sym }
-      @sorns = @sorns.dynamic_search(field_syms, params[:search])
+    # elsif search_present_and_agency_blank?
+    #   #  return matching sorns with just those fields
+    #   @selected_fields = params[:fields]
+    #   field_syms = @selected_fields.map { |field| field.to_sym }
+    #   @sorns = @sorns.dynamic_search(field_syms, params[:search])
 
-    elsif search_blank_and_agency_present?
-      # return agency sorns with just those fields
-      @selected_fields = params[:fields]
-      @sorns = @sorns.joins(:agencies).where(agencies: {name: params[:agency]})
+    # elsif search_blank_and_agency_present?
+    #   # return agency sorns with just those fields
+    #   @selected_fields = params[:fields]
+    #   @sorns = @sorns.joins(:agencies).where(agencies: {name: params[:agency]})
 
-    elsif search_and_fields_and_agency_present?
-      # return matching, agency sorns with just those fields
-      @selected_fields = params[:fields]
-      field_syms = @selected_fields.map { |field| field.to_sym }
-      @sorns = @sorns.dynamic_search(field_syms, params[:search]).joins(:agencies).where(agencies: {name: params[:agency]})
+    # elsif search_and_fields_and_agency_present?
+    #   # return matching, agency sorns with just those fields
+    #   @selected_fields = params[:fields]
+    #   field_syms = @selected_fields.map { |field| field.to_sym }
+    #   @sorns = @sorns.dynamic_search(field_syms, params[:search]).joins(:agencies).where(agencies: {name: params[:agency]})
 
-    else
-      raise "WUT"
-    end
+    # else
+    #   raise "WUT"
+    # end
 
     @sorns = @sorns.page(params[:page]) if request.format == :html
 
